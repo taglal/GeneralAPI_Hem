@@ -13,7 +13,24 @@ function verifyToken(token){
 
 // TODO: auth middleware function 
 
+function tokenchecker(req, res, next){
+
+    const authHeader = req.headers['authorization']; //bearer *token*
+    const token = authHeader.split(' ')[1]; //get the token from the header
+    if(!token){
+        return res.status(401).json({error: 'Access denied. No token provided.'});
+    }
+    try{
+        const decoded = verifyToken(token);
+        req.user = decoded; //attach the decoded payload to the request object
+        next();
+    }catch(err){
+        return res.status(400).json({error: 'Invalid token or expired.'});
+    }
+}
+
 module.exports = {
     generateToken,
-    verifyToken
+    verifyToken,
+    tokenchecker
 }
