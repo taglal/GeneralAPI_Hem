@@ -148,7 +148,7 @@ router.get('/:table/:field/:operator/:value', tokenchecker, (req, res) => {
 });
 
 // ADD NEW RECORD TO A TABLE
-router.post('/:table', (req, res) => {
+router.post('/:table', tokenchecker, (req, res) => {
     let table = req.params.table;
     let data = req.body;
 

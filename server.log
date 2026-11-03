@@ -194,3 +194,8 @@
 [2026-10-14 12:25] info: DB query successful: INSERT INTO users (name, email, passwd, role) VALUES('Teszt Elek2', 'tesztelek2@gmail.com', '858bfa96067df841b4727b372f52a9f7436971e6', 'user') -> 1 record(s) affected (4 ms)
 [2026-10-14 12:26] info: DB query successful: SELECT * FROM users WHERE email=? -> 0 record(s) sent (1 ms)
 [2026-10-14 12:26] info: DB query successful: INSERT INTO users (name, email, passwd, role, phone) VALUES('Teszt Elek3', 'tesztelek3@gmail.com', '858bfa96067df841b4727b372f52a9f7436971e6', 'user', '+36-20/333-55-44') -> 1 record(s) affected (5 ms)
+[2026-11-03 10:28] info: DB query successful: UPDATE steps SET step_count = '2500', date = '2026-10-11' WHERE ID = ? -> 0 record(s) affected (14 ms)
+[2026-11-03 11:16] info: DB query successful: SELECT * FROM steps -> 8 record(s) sent (12 ms)
+[2026-11-03 11:22] info: DB query successful: SELECT * FROM steps -> 8 record(s) sent (14 ms)
+[2026-11-03 11:22] info: DB query successful: SELECT * FROM steps -> 8 record(s) sent (2 ms)
+[2026-11-03 11:22] info: DB query successful: SELECT * FROM steps -> 8 record(s) sent (1 ms)
