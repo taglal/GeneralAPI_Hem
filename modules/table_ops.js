@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { tokenchecker } = require('../utils/jwt');
+const { adminchecker } = require('../utils/jwt');
 
 var db = require('../utils/database');
 
@@ -166,7 +167,7 @@ router.post('/:table', tokenchecker, (req, res) => {
 });
 
 // UPDATE A SPECIFIC RECORD BY ID IN A TABLE
-router.patch('/:table/:id', (req, res) => {
+router.patch('/:table/:id', tokenchecker, (req, res) => {
     let table = req.params.table;
     let id = req.params.id;
     let data = req.body;
@@ -184,7 +185,7 @@ router.patch('/:table/:id', (req, res) => {
 });
 
 // UPDATE RECORDS IN A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE
-router.patch('/:table/:field/:value', (req, res) => {
+router.patch('/:table/:field/:value', tokenchecker, (req, res) => {
     let table = req.params.table;
     let field = req.params.field;
     let value = req.params.value;
@@ -202,7 +203,7 @@ router.patch('/:table/:field/:value', (req, res) => {
 });
 
 // UPDATE RECORDS IN A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE WITH AN OPERATOR
-router.patch('/:table/:field/:operator/:value', (req, res) => {
+router.patch('/:table/:field/:operator/:value', tokenchecker, (req, res) => {
     let table = req.params.table;
     let field = req.params.field;
     let operator = getOps(req.params.operator);
@@ -224,7 +225,7 @@ router.patch('/:table/:field/:operator/:value', (req, res) => {
 });
 
 // DELETE ALL RECORDS FROM A TABLE
-router.delete('/:table', (req, res) => {
+router.delete('/:table', adminchecker, (req, res) => {
     let table = req.params.table;
 
     db.query(`DELETE FROM ${table}`, (err, _results) => {
@@ -238,7 +239,7 @@ router.delete('/:table', (req, res) => {
 });
 
 // DELETE A SPECIFIC RECORD BY ID FROM A TABLE
-router.delete('/:table/:id', (req, res) => {
+router.delete('/:table/:id', tokenchecker, (req, res) => {
     let table = req.params.table;
     let id = req.params.id;
 
@@ -253,7 +254,7 @@ router.delete('/:table/:id', (req, res) => {
 });
 
 // DELETE RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE
-router.delete('/:table/:field/:value', (req, res) => {
+router.delete('/:table/:field/:value',  tokenchecker, (req, res) => {
     let table = req.params.table;
     let field = req.params.field;
     let value = req.params.value;
@@ -268,7 +269,7 @@ router.delete('/:table/:field/:value', (req, res) => {
 });
 
 // DELETE RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE WITH AN OPERATOR
-router.delete('/:table/:field/:operator/:value', (req, res) => {
+router.delete('/:table/:field/:operator/:value',  tokenchecker, (req, res) => {
     let table = req.params.table;
     let field = req.params.field;
     let operator = getOps(req.params.operator);

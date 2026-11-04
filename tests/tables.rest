@@ -2,27 +2,51 @@
 @port = 4440
 @server =  {{host}}:{{port}}
 
+@token = {{login.response.body.token}}
 
+# @name register
+POST {{server}}/auth/register
+Content-Type: application/json
+
+{
+    "name": "Teszt Elek",
+    "email": "tesztelek4@gmail.com",
+    "passwd": "TitkosJelszo123!",
+    "confirm": "TitkosJelszo123!",
+    "role": "user"
+}
+### Login 
+
+# @name login
+POST {{server}}/auth/login
+Content-Type: application/json
+
+
+{
+    "email": "tesztelek4@gmail.com",
+    "passwd": "TitkosJelszo123!"
+}
 ### SELECT ALL RECORDS FROM A TABLE
 GET {{server}}/steps
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### SELECT A SPECIFIC RECORD BY ID FROM A TABLE
 GET {{server}}/steps/3
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### SELECT RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE
 GET {{server}}/steps/userID/3
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### SELECT RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE WITH AN OPERATOR
 GET {{server}}/steps/step_count/gt/5000
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### ADD NEW RECORD TO A TABLE
 POST {{server}}/steps
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 {
     "userID": 3,
     "step_count": 6000,
@@ -32,7 +56,7 @@ Content-Type: application/json
 ### UPDATE A SPECIFIC RECORD BY ID IN A TABLE
 PATCH {{server}}/steps/3
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 {
     "step_count": 2500,
     "date": "2026-10-11"
@@ -41,7 +65,7 @@ Content-Type: application/json
 ### UPDATE RECORDS IN A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE
 PATCH {{server}}/steps/userID/eq/3
 Content-Type: application/json  
-
+Authorization: Bearer {{token}}
 {
     "step_count": 3000
 }
@@ -49,7 +73,7 @@ Content-Type: application/json
 ### UPDATE RECORDS IN A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE WITH AN OPERATOR
 PATCH {{server}}/steps/step_count/lt/3000
 Content-Type: application/json  
-
+Authorization: Bearer {{token}}
 {
     "step_count": 9999
 }
@@ -57,15 +81,16 @@ Content-Type: application/json
 ### DELETE ALL RECORDS FROM A TABLE
 DELETE {{server}}/steps
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### DELETE A SPECIFIC RECORD BY ID FROM A TABLE
 DELETE {{server}}/steps/3
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### DELETE RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE
 DELETE {{server}}/steps/userID/3
 Content-Type: application/json
-
+Authorization: Bearer {{token}}
 ### DELETE RECORDS FROM A TABLE WHERE A SPECIFIC FIELD MATCHES A VALUE WITH AN OPERATOR
 DELETE {{server}}/steps/step_count/lt/3000
 Content-Type: application/json
+Authorization: Bearer {{token}}

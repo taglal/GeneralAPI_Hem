@@ -4,24 +4,24 @@
 
 ### Register a new user
 
+# @name register
 POST {{server}}/auth/register
 Content-Type: application/json
 
 {
-    "name": "Teszt Elek3",
-    "email": "tesztelek3@gmail.com",
+    "name": "Teszt Elek",
+    "email": "tesztelek4@gmail.com",
     "passwd": "TitkosJelszo123!",
     "confirm": "TitkosJelszo123!",
-    "role": "user",
-    "phone": "+36-20/333-55-44"
+    "role": "user"
 }
-
 ### Login 
 
+# @name login
 POST {{server}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "teszelek@gmail.com",
-    "passwd": "TitkosJelszo123!",
+    "email": "tesztelek4@gmail.com",
+    "passwd": "TitkosJelszo123!"
 }

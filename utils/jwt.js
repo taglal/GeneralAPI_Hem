@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 
-console.log( generateToken({user: 'testuser'}) );
+
 
 function generateToken(payload){
     const signOption = {
@@ -31,8 +31,28 @@ function tokenchecker(req, res, next){
     }
 }
 
+
+function adminchecker(req, res, next){
+
+    const authHeader = req.headers['authorization']; //bearer *token*
+    const token = authHeader && authHeader.split(' ')[1]; //get the token from the header
+    if(!token){
+        return res.status(401).json({error: 'Access denied. No token provided.'});
+    }
+    try{
+        const decoded = verifyToken(token);
+        req.user = decoded; //attach the decoded payload to the request object
+        if(decoded.role !== 'admin'){
+            return res.status(403).json({error: 'Access denied. Admins only.'});
+        }
+        next();
+    }catch(err){
+        return res.status(400).json({error: 'Invalid token or expired.'});
+    }
+}
 module.exports = {
     generateToken,
     verifyToken,
-    tokenchecker
+    tokenchecker,
+    adminchecker
 }
